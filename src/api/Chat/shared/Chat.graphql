@@ -1,0 +1,38 @@
+type Chat {
+  id: Int!
+  messages: [Message]!
+  fromId: Int!
+  toId: Int!
+  createAt: String!
+  updateAt: String
+}
+
+type CreateChatResponse {
+  ok: Boolean!
+  error: String
+  chat: Chat
+}
+
+type GetChatResponse {
+  ok: Boolean!
+  error: String
+  chat: Chat
+}
+
+type SendChatMessageResponse {
+  ok: Boolean!
+  error: String
+  message: Message
+}
+
+type Query {
+  GetChat(chatId: Int!): GetChatResponse!
+}
+type Mutation {
+  CreateChat(participant: Int!): CreateChatResponse!
+  SendChatMessage(text: String!, chatId: Int!): SendChatMessageResponse!
+}
+
+type Subscription {
+  MessageSubscription: Message
+}

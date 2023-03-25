@@ -1,0 +1,116 @@
+type Chat {
+  id: Int!
+  messages: [Message]!
+  fromId: Int!
+  toId: Int!
+  createAt: String!
+  updateAt: String
+}
+
+type CreateChatResponse {
+  ok: Boolean!
+  error: String
+  chat: Chat
+}
+
+type GetChatResponse {
+  ok: Boolean!
+  error: String
+  chat: Chat
+}
+
+type SendChatMessageResponse {
+  ok: Boolean!
+  error: String
+  message: Message
+}
+
+type Query {
+  GetChat(chatId: Int!): GetChatResponse!
+  GetMyProfile: GetMyProfileResponse!
+}
+
+type Mutation {
+  CreateChat(participant: Int!): CreateChatResponse!
+  SendChatMessage(text: String!, chatId: Int!): SendChatMessageResponse!
+  CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!
+  EmailSignIn(email: String!, password: String!): EmailSignInResponse!
+  EmailSignUp(firstName: String!, lastName: String!, email: String!, password: String!, profilePhoto: String!, age: Int!, phoneNumber: String!): EmailSignUpResponse!
+  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
+  UpdateProfile(firstName: String, lastName: String, email: String, password: String, age: Int, profilePhoto: String): UpdateProfileResponse!
+}
+
+type Subscription {
+  MessageSubscription: Message
+}
+
+type Message {
+  id: Int!
+  text: String!
+  chat: Chat!
+  user: User!
+  createAt: String!
+  updateAt: String
+}
+
+type CompletePhoneVerificationResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type EmailSignInResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type EmailSignUpResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type GetMyProfileResponse {
+  ok: Boolean!
+  error: String
+  user: User
+}
+
+type User {
+  id: Int!
+  email: String
+  verifiedEmail: Boolean!
+  firstName: String!
+  lastName: String!
+  age: Int
+  password: String
+  phoneNumber: String
+  verifiedPhoneNumber: Boolean!
+  profilePhoto: String
+  createAt: String!
+  updateAt: String!
+  fullName: String
+  messages: [Message]
+  chat: Chat
+}
+
+type StartPhoneVerificationResponse {
+  ok: Boolean!
+  error: String
+}
+
+type UpdateProfileResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Verification {
+  id: Int!
+  target: String!
+  payload: String!
+  key: String!
+  verified: Boolean!
+  createAt: String!
+  updateAt: String
+}
